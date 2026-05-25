@@ -1,0 +1,11 @@
+# Target directories for Maven/Gradle
+**/target/
+**/build/
+
+# IDE specific files
+**.idea/
+**.vscode/
+*.iml
+
+# OS specific files
+.DS_Store
