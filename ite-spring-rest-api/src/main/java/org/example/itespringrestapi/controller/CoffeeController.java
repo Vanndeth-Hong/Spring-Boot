@@ -1,14 +1,16 @@
 package org.example.itespringrestapi.controller;
 
 
+import lombok.extern.slf4j.Slf4j;
+import org.example.itespringrestapi.domain.Coffee;
 import org.example.itespringrestapi.dto.CoffeeResponse;
 import org.example.itespringrestapi.service.CoffeeService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/v1/coffees")
 public class CoffeeController {
@@ -18,11 +20,29 @@ public class CoffeeController {
     }
 
     @GetMapping
-    public List<CoffeeResponse> getCoffee() {
+    public List<Coffee> getCoffee() {
 
         return coffeeService.getCoffee();
 
     }
+
+    @GetMapping("/{id}")
+    public CoffeeResponse getCoffeeById(@PathVariable Integer id){
+        log.info("GET id: {}", id);
+        return coffeeService.getCoffeeById(id);
+    }
+
+    @GetMapping("/search")
+    public List<CoffeeResponse> searchCoffeesByName(
+            @RequestParam(required = false, defaultValue = "Null") String name,
+            @RequestParam(required = false, defaultValue = "0.0") Double price
+    ){
+        log.info("GET search name: {}", name);
+        log.info("GET search price: {}", price );
+
+        return coffeeService.searchByNameandPrice(name,price);
+    }
+
 
 }
 

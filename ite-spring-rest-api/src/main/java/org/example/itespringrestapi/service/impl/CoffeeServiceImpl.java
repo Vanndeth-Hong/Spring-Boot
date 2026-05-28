@@ -8,6 +8,7 @@ import org.example.itespringrestapi.service.CoffeeService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
 public class CoffeeServiceImpl implements CoffeeService {
 
@@ -18,12 +19,31 @@ public class CoffeeServiceImpl implements CoffeeService {
     }
 
     @Override
-    public List<CoffeeResponse> getCoffee() {
-//        return coffeeRepository.beanCoffee();
-        List<Coffee> coffees= coffeeRepository.beanCoffee();
-        return coffees.stream()
-//                .filter(coffee -> coffee.getId()>2)
-                .map(coffee -> new  CoffeeResponse(coffee.getName(),coffee.getDescription() ))
+    public List<Coffee> getCoffee() {
+        return coffeeRepository.beanCoffee();
+    }
+
+
+
+
+    @Override
+    public CoffeeResponse getCoffeeById(Integer id) {
+        CoffeeResponse coffee = coffeeRepository.beanCoffee()
+                .stream()
+                .filter(c -> c.getId().equals(id))
+                .map(c -> new CoffeeResponse(c.getName(), c.getDescription(), c.getPrice()))
+                .findFirst().orElseThrow(() -> new RuntimeException("Not Found"));
+        return coffee;
+
+    }
+
+    @Override
+    public List<CoffeeResponse> searchByNameandPrice(String name, Double price){
+        List<CoffeeResponse> search = coffeeRepository.beanCoffee()
+                .stream()
+                .filter(s -> s.getName().contains(name) && s.getPrice().equals(price))
+                .map(s-> new CoffeeResponse(s.getName(), s.getDescription(), s.getPrice()))
                 .toList();
+        return search;
     }
 }
