@@ -38,7 +38,7 @@ public class CoffeeServiceImpl implements CoffeeService {
     }
 
     @Override
-    public List<CoffeeResponse> searchByNameandPrice(String name, Double price){
+    public List<CoffeeResponse> searchByNameAndPrice(String name, Double price){
         List<CoffeeResponse> search = coffeeRepository.beanCoffee()
                 .stream()
                 .filter(s -> s.getName().contains(name) && s.getPrice().equals(price))

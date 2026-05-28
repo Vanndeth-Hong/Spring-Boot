@@ -11,6 +11,6 @@ public interface CoffeeService {
 
     CoffeeResponse getCoffeeById(Integer id);
 
-    List<CoffeeResponse> searchByNameandPrice(String name, Double price);
+    List<CoffeeResponse> searchByNameAndPrice(String name, Double price);
 
 }

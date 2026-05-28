@@ -40,7 +40,7 @@ public class CoffeeController {
         log.info("GET search name: {}", name);
         log.info("GET search price: {}", price );
 
-        return coffeeService.searchByNameandPrice(name,price);
+        return coffeeService.searchByNameAndPrice(name,price);
     }
 
 
