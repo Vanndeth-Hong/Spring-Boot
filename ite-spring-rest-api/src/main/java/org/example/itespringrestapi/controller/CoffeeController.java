@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.itespringrestapi.domain.Coffee;
 import org.example.itespringrestapi.dto.CoffeeResponse;
 import org.example.itespringrestapi.dto.CreateCoffeeRequest;
+import org.example.itespringrestapi.dto.UpdateCoffeeRequest;
 import org.example.itespringrestapi.service.CoffeeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -17,9 +18,26 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/coffees")
 public class CoffeeController {
+
     private final CoffeeService coffeeService;
+
     public CoffeeController(CoffeeService coffeeService) {
         this.coffeeService = coffeeService;
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/{id}")
+    public void deleteCoffeeById(@PathVariable Integer id){
+        log.info("DELETE id: {}", id);
+        coffeeService.deleteCoffeeById(id);
+    }
+
+    @PutMapping("/{id}")
+    public CoffeeResponse updateCoffeeById(
+            @PathVariable Integer id,
+            @Valid @RequestBody UpdateCoffeeRequest updateCoffeeRequest
+            ){
+        return coffeeService.updateCoffeeById(id, updateCoffeeRequest);
     }
 
     @GetMapping
