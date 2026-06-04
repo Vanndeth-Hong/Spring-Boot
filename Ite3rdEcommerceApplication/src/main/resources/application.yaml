@@ -1,0 +1,11 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:2027/postgres
+    username: qwer
+    password: qwer123
+  application:
+    name: ite3rdecommerce
