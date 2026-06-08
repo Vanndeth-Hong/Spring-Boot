@@ -22,9 +22,14 @@ public class Category{
     private String description;
     private String icon;
 
+    @Column(nullable = false)
+    private Boolean isDeleted;
+
     @ManyToOne
     private Category parentCategory;
 
     @OneToMany(mappedBy = "category")
     private List<Product> products;
+
+
 }
